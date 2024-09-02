@@ -35,7 +35,7 @@ async fn main() {
                 .insert("my-key", &start.elapsed().as_millis());
             tokio::time::sleep(Duration::from_millis(350)).await;
         }
-    // We need to await here to make sure we don't exit out application early
+    // We need to await here to make sure we don't exit our application early
     }).await;
 }
 ```

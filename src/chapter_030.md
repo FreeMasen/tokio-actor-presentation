@@ -1,6 +1,6 @@
 # Tokio Mutex
 
-web-only$
+$web-only$
 
 To start, let's just swap out the Mutex and see what happens.
 
