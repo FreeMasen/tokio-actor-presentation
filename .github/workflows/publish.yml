@@ -1,0 +1,36 @@
+name: Publish Book
+
+# We're going to push to the gh-pages branch, so we need that permission
+permissions:
+  contents: write
+on:
+  
+  push:
+    branches:
+      - main
+
+jobs:
+  web:
+    name: Build and deploy site and docs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: swatinem/rust-cache@v2
+      - name: Setup mdBook
+        uses: peaceiris/actions-mdbook@v2
+      - name: setup pre-processor
+        run: cargo install mdbook-presentation-preprocessor
+      - name: build pages
+        run: mdbook build
+      - name: Deploy to Github Pages
+        uses: JamesIves/github-pages-deploy-action@v4.6.1
+        # ONLY if we're on main (so no PRs or feature branches allowed!)
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          branch: gh-pages
+          folder: book
+          token: ${{ secrets.GITHUB_TOKEN }}
+          single-commit: true
