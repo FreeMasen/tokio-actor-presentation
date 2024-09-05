@@ -103,7 +103,7 @@ error[E0502]: cannot borrow `db` as mutable because it is also borrowed as immut
 
 $web-only$
 
-Because both the task that calls `get` and the task that calls `insert` both need a reference to
+Because the task that calls `get` and the task that calls `insert` both need a reference to
 this shared database the compiler is complaining that we need somehting to synchronize the insert
 and get operations.
 

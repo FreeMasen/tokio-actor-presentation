@@ -123,4 +123,8 @@ the value and drops the guard and then immedatly tries to lock the map again. At
 the `insert` task called `lock` before our second `lock` in the get task, `tokio` will let our
 `insert` task start to make progress which inserts our first value.
 
+Notice how the insert is delayed by the access in our `get` task, In this case that would be
+desirable since we don't want to be able to mutate a value when we don't have exclusive access to
+it.
+
 $web-only-end$
